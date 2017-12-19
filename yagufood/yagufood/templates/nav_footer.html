@@ -1,0 +1,497 @@
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="naver-site-verification" content="0de4a15439ad9b4b7f82afee15dd12c4a48bb1a5"/>
+    <link rel="canonical" href="http://yagujango.com">
+    <meta name="robots" content="follow">
+    <meta name="description" content="잠실야구장, 고척스카이돔, 광주챔피언스필드, 사직야구장 등 9개 전구장 좌석 뷰 정보 제공. 야구장 직관의 모든 정보, 야!구장고?">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="직관갈땐, 야구장고">
+    <meta property="og:description" content="잠실야구장, 고척스카이돔, 광주챔피언스필드, 사직야구장 등 9개 전구장 좌석 뷰 정보 제공. 야구장 직관의 모든 정보, 야!구장고?">
+    <meta property="og:image" content="https://s3.ap-northeast-2.amazonaws.com/yagudjango-static/img/bg/url_img.jpeg">
+
+    <meta property="og:url" content="http://yagujango.com">
+    <meta property="og:url" content="http://www.yagujango.com">
+
+    <link rel="icon" href="{% static "img/logo/tab_img.png" %}">
+
+    <title>{% block title %}야구장고{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/nav_footer.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
+
+    <script src="{% static "js/jquery-2.1.3.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    <!--[if lt IE 9]>
+      <script src="html5shiiv.min.js"></script>
+      <script src="respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+    $(function() {
+
+        $('a[href="#toggle-search"], .navbar-bootsnipp .bootsnipp-search .input-group-btn > .btn[type="reset"]').on('click', function(event) {
+            event.preventDefault();
+            $('.navbar-bootsnipp .bootsnipp-search .input-group > input').val('');
+            $('.navbar-bootsnipp .bootsnipp-search').toggleClass('open');
+            $('a[href="#toggle-search"]').closest('li').toggleClass('active');
+
+            if ($('.navbar-bootsnipp .bootsnipp-search').hasClass('open')) {
+                /* I think .focus dosen't like css animations, set timeout to make sure input gets focus */
+                setTimeout(function() {
+                    $('.navbar-bootsnipp .bootsnipp-search .form-control').focus();
+                }, 100);
+            }
+        });
+
+        $(document).on('keyup', function(event) {
+            if (event.which == 27 && $('.navbar-bootsnipp .bootsnipp-search').hasClass('open')) {
+                $('a[href="#toggle-search"]').trigger('click');
+            }
+        });
+
+    });
+    </script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1401609046597770');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1401609046597770&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+
+    <style>
+    @font-face {
+            font-family: "a고딕11";
+            src: url("{% static "fonts/a-gothic-11.ttf" %}");
+        }
+    @font-face {
+            font-family: "a고딕13";
+            src: url("{% static "fonts/a-gothic-13.ttf" %}");
+        }
+    @font-face {
+            font-family: "a고딕15";
+            src: url("{% static "fonts/a-gothic-15.ttf" %}");
+        }
+    @font-face {
+        font-family: "a고딕17";
+        src: url("{% static "fonts/a-gothic-17.ttf" %}");
+        }
+    @font-face {
+        font-family: "210썬플라워R";
+        src: url("{% static "fonts/210-Sunflower-OTF R.ttf" %}");
+        }
+    
+    body {
+        -webkit-text-size-adjust: none; 
+        -webkit-transform-origin-x: 0;
+    }
+
+    .content_in, .body_in {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #nav_list a {
+        font-family: "a고딕13";
+    }
+    .nav_list_right {
+        margin-right: 0px;
+    }
+    .navbar-bootsnipp .navbar-nav > li > a {
+        border: 0px solid #b70000;
+        color: rgb(120, 120, 120);
+        padding: 12px 10px;
+    }
+    .nav .open > a,
+    .nav .open > a:hover,
+    .nav .open > a:focus {
+      background-color: #eee;
+      border-color: #b70000;
+    }
+
+    .footer {
+        background-color: #3f3f3f;
+        text-align: center;
+        color: #fff;
+        font-family: "a고딕11";
+    }
+    .footer li {
+        border-right: solid 1px #fff;
+    }
+    #footer_list {
+        display: inline-block;
+    }
+
+
+    @media (max-width: 768px) {
+        .content_in, .body_in {
+            width: 320px;
+        }
+        #nav_list {
+            margin-top: 0px;
+        }
+        #nav_list a{
+            font-size: 11pt;
+            padding-left: 20px;
+        }
+        #logo {
+            height: 45px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .three_line {
+            margin-top: 33px;
+            margin-bottom: 3px;
+            margin-right: 0px;
+        }
+        .footer {
+            height: 170px;
+            font-size: 7pt;
+        }
+        .footer ul {
+            padding-left: 0px;
+            margin-bottom: 0px;
+        }
+        .footer li {
+            padding: 0px 10px;
+            margin: 10px 0px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .content_in, .body_in {
+            width: 900px;
+        }
+        #nav_list {
+            margin-top: 54px;
+        }
+        #nav_list a{
+            font-size: 13pt;
+        }
+        #logo {
+            height: 60px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .three_line {
+            margin-top: 50px;
+        }
+        .footer {
+            height: 210px;
+        }
+        .footer li {
+            padding: 10px 0px;
+            margin: 0px 20px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .content_in, .body_in {
+            width: 1200px;
+        }
+        #nav_list {
+            margin-top: 54px;
+        }
+        #nav_list a{
+            font-size: 13pt;
+        }
+        #logo {
+            height: 60px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .three_line {
+            margin-top: 50px;
+        }
+        .footer {
+            height: 210px;
+        }
+        .footer li {
+            padding: 10px 0px;
+            margin: 0px 20px;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    #nav_list {
+        margin-top: 54px;
+    }
+
+    @media (max-width: 768px) {
+        #nav_list {
+            margin-top: 0px;
+        }
+    }
+
+    #nav_list a {
+        font-family: "a고딕13";
+        font-size: 13pt;
+    }
+
+    @media (max-width: 768px) {
+        #nav_list a {
+            font-size: 11pt;
+            padding-left: 20px; 
+        }
+    }
+
+    .nav_list_right {
+        margin-right: 0px;
+    }
+
+    .navbar-bootsnipp .navbar-nav > li > a {
+        border: 0px solid #b70000;
+        color: rgb(120, 120, 120);
+        padding: 12px 10px;
+    }
+
+    #logo {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        margin-right: 20px;
+        margin-left: 20px;
+        height: 60px;
+    }
+
+    @media (max-width: 768px) {
+        #logo {
+            height: 45px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+
+    .three_line {
+        margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+        .three_line {
+            margin-top: 33px;
+            margin-bottom: 3px;
+            margin-right: 0px;
+        }
+    }
+
+    .nav .open > a,
+    .nav .open > a:hover,
+    .nav .open > a:focus {
+      background-color: #eee;
+      border-color: #b70000;
+    }
+
+    /*.content {
+        margin-top: 100px;
+    }*/
+
+    /*@media (max-width: 768px) {
+        .content {
+            margin-top: 70px;
+        }
+    }*/
+
+    .footer {
+        background-color: #3f3f3f;
+        height: 210px;
+        text-align: center;
+        color: #fff;
+        font-family: "a고딕11";
+    }
+
+    .footer li {
+        margin: 10px 0px;
+        padding: 0px 20px;
+        border-right: solid 1px #fff;
+    }
+
+    .footer li a {
+        color: #fff;
+    }
+
+    #footer_list {
+        display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+        .footer {
+            height: 170px;
+            font-size: 7pt;
+        }
+        .footer ul {
+            padding-left: 0px;
+       장    margin-bottom: 0px;
+        }
+        .footer li {
+            padding: 0px 10px;
+            margin: 10px 0px;
+        }
+    }
+
+    </style>
+
+    {% block head_extra %}
+    {% endblock %}
+
+</head>
+<body>
+    <nav class="[ navbar ][ navbar-bootsnipp animate body_in ]" role="navigation">
+        <div id="nav_custom">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="[ navbar-header ]">
+                <button type="button" class="[ navbar-toggle three_line ]"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="[ sr-only ]">Toggle navigation</span>
+                    <span class="[ icon-bar ]"></span>
+                    <span class="[ icon-bar ]"></span>
+                    <span class="[ icon-bar ]"></span>
+                </button>
+                <div class="[ animbrand ]">
+                    <a class="[ animate ]" href="{% url "yagudjango:yagudjango_main" %}">
+                        <img id="logo" src="{% static "img/logo/logo.png" %}">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="[ collapse navbar-collapse nav_list_all ]" id="bs-example-navbar-collapse-1">
+                <ul class="[ nav navbar-nav ]" id="nav_list">
+                    <li><a href="{% url "yagudjango:yagudjango_service_intro" %}" class="[ animate ]">서비스 소개 </a></li>
+                    <li>
+                        <a href="#" class="[ dropdown-toggle ][ animate ]" data-toggle="dropdown">야구장 뷰 <span class="[ caret ]"></span></a>
+                        <ul class="[ dropdown-menu ]" role="menu">
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 4%}" class="[ animate ]">KIA챔피언스필드 </a></li>
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 1%}" class="[ animate ]">잠실야구장 </a></li>
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 7%}" class="[ animate ]">롯데사직야구장 </a></li>
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 2%}" class="[ animate ]">NC마산야구장 </a></li>
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 5%}" class="[ animate ]">SK행복드림구장 </a></li>
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 3%}" class="[ animate ]">고척스카이돔 </a></li>
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 6%}" class="[ animate ]">한화생명이글스파크 </a></li>
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 8%}" class="[ animate ]">삼성라이온즈파크 </a></li>
+                            <li><a href="{% url "yagudjango:yagudjango_stadium" 9%}" class="[ animate ]">KT위즈파크 </a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url "record:record_ticket" %}" class="[ animate ]">직관 기록 </a></li>
+                    
+                    <!-- <li><a class="[ animate ]" href="{% url "yagudjango:yagudjango_stadium" 1%}">잠실야구장 </a></li>
+                    <li><a class="[ animate ]" href="{% url "yagudjango:yagudjango_stadium" 3%}">고척야구장 </a></li>
+                    <li><a class="[ animate ]" href="{% url "posting:post_list" %}">포스팅 </a></li> -->
+                </ul>
+                <ul class="[ nav navbar-nav navbar-right nav_list_right ]" id="nav_list">
+                {% if not user.is_authenticated %}
+                    <li><a class="animate" href="{% url "login" %}?next={{ request.path }}"> 로그인</a></li>
+                    <li><a class="animate" href="{% url "policy" %}?next={{ request.path }}"> 회원가입</a></li>
+                    
+                {% else %}
+                    <li><a class="animate" href="{% url "profile" %}">
+                    {% if user.profile.nick_name %}
+                        {{ user.profile.nick_name }}
+                    {% elif user.socialaccount_set.first.extra_data %}
+                        {% if user.socialaccount_set.first.extra_data.properties.nickname %}
+                            {{ user.socialaccount_set.first.extra_data.properties.nickname }}
+                        {% else %}
+                            {{ user.socialaccount_set.first.extra_data.name }}
+                        {% endif %}
+                    {% else %}
+                        {{ user.username }}
+                    {% endif %}
+                      's 프로필 </a></li>
+                    
+                    <li><a class="animate" href="{% url "logout" %}?next={{ request.path }}"> 로그아웃 </a></li>
+                    
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="[ bootsnipp-search animate ]">
+            <div class="[ container ]">
+                <form action="http://bootsnipp.com/search" method="GET" role="search">
+                    <div class="[ input-group ]">
+                        <input type="text" class="[ form-control ]" name="q" placeholder="Search for yagujango and hit enter">
+                        <span class="[ input-group-btn ]">
+                            <button class="[ btn btn-danger ]" style="margin-top: 0px; background-color: #b70000" type="reset"><span class="[ glyphicon glyphicon-remove ]"></span></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <content>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <footer>
+            <div class="footer"><br>
+            <div class="body_in">
+                <ul>
+                    <li id="footer_list"><a href="{% url "yagudjango:yagudjango_introduce" %}"><strong><i class="fa fa-users" aria-hidden="true"></i> 팀소개</strong></a></li>
+                    <!-- <li id="footer_list"><a href="#"><strong><i class="fa fa-newspaper-o" aria-hidden="true"></i> 이용약관</strong></a></li> -->
+                    <li id="footer_list"><a href="http://plus.kakao.com/home/@야구장고"><strong><i class="fa fa-question" aria-hidden="true"></i> 문의사항</strong></a></li>
+                    <li id="footer_list" style="border-right: 0px"><a href="https://www.facebook.com/%EC%95%BC%EA%B5%AC%EC%9E%A5%EA%B3%A0-362930834101227/?fref=ts"><strong><i class="fa fa-facebook" aria-hidden="true"></i> 페이스북</strong></a></li>
+                </ul>
+
+                <small>
+                <p>All for more fun, More fun for all !</p>
+                <p><strong>만든이</strong> : 정지은 김수지 이재원 전주영 남성필</p>
+                <p><strong>도움을 주신이</strong> : AskDjango 이진석</p><br>
+
+                &copy; 2017 Yagudjango, SNU Business Venture and Entrepreneurship
+                </small>
+            </div>
+            </div>
+        </footer>
+
+
+    </content>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-98268951-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+</body>
+</html>
