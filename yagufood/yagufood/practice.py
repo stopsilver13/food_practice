@@ -1,1 +1,2 @@
-pritn("KIN")
+print("KIN")
+print("즐")
