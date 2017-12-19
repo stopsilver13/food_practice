@@ -1,1 +1,1 @@
-pritn("KIN")
+print("KIN")
