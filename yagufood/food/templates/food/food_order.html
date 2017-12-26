@@ -8,10 +8,120 @@
 {% endblock %}
 
 {% block head_extra %}
+
+
+<style type="text/css">
+    .food-menu, .side-menu {
+        display: inline-block;
+        text-align: center;
+        height: 200px;
+        width: 200px;
+    }
+
+    .pick-food-navbar {
+        vertical-align: top;
+        font-size: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    .pick-food-navbar a.active {
+        background-color: #b70000;
+    }
+
+    .pick-food-navbar a:hover {
+        text-decoration: none;
+    }
+
+    .pick-food-navbar a:focus {
+        text-decoration: none;
+    }
+
+    .pick-food-navbar a {
+        display: inline-block;
+        width: 33.33%;
+        background-color: #e0e0e0;
+        padding: 7px 10px;
+        font-size: 17px;
+        color: #ffffff;
+        text-align: center;
+        -webkit-border-radius: 25px 25px 0 0;
+        -moz-border-radius: 25px 25px 0 0;
+        border-radius: 20px 20px 0 0;
+    }
+
+    div.picked-view {
+            background-color: #fff;
+        }
+
+</style>
 {% endblock %}
 
 {% block content %}
 
-<h1>TODO : 음식 주문을 구현하세요.</h1>
+<div class="content_in">
+    <div class="pick-food-section">
+        <div class="pick-food-navbar">
+            <a href="#mainmenu" class="active" data-toggle="tab">1. 메인메뉴</a>
+            <a href="#side" data-toggle="tab">2. 사이드</a>
+            <a href="#beverage" data-toggle="tab">3. 음료</a>
+        </div>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="mainmenu">
+                <div class="picked-view">
+                    <div class="food-menu">
+                        <img src="{% static 'img/porkcutlet.jpeg'%}" style="width:100%;">
+                        돈까스
+                        8000원
+                    </div>
+
+                    <div class="food-menu">
+                        <img src="{% static 'img/coldnoodle.jpeg'%}" style="width:100%;">
+                        냉면
+                        5000원
+                    </div>
+
+                    <div class="food-menu">
+                        <img src="{% static 'img/dumpling.jpg'%}" style="width:100%;">
+                        만두
+                        3000원
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="side">
+                <div class="picked-view">
+                    <div class="side-menu">
+                        <img src="{% static 'img/homerunball.jpg'%}" style="width:100%;">
+                        홈런볼 1000원
+                    </div>
+
+                    <div class="side-menu">
+                        편의용품세트 1000원
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="beverage">
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        여기에 추가하기
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $('div.pick-food-navbar a').on('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        $('div.pick-food-navbar a.active').removeClass('active');
+        $(this).addClass('active');
+    });
+</script>
 
 {% endblock %}
