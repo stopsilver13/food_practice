@@ -11,6 +11,10 @@
 
 
 <style type="text/css">
+    .picked-view {
+        height: 800px;
+    }
+
     .food-menu, .side-menu {
         display: inline-block;
         text-align: center;
@@ -50,10 +54,14 @@
         border-radius: 20px 20px 0 0;
     }
 
-    div.picked-view {
-            background-color: #fff;
-        }
-
+    .what-i-picked {
+        background-color: black;
+        opacity: 0.7;
+        position: fixed;
+        height: 150px;
+        bottom: 0;
+        width: 100%;
+    }
 </style>
 {% endblock %}
 
@@ -70,36 +78,39 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="mainmenu">
                 <div class="picked-view">
-                    <div class="food-menu">
+                    <a href=""><div class="food-menu">
                         <img src="{% static 'img/porkcutlet.jpeg'%}" style="width:100%;">
-                        돈까스
-                        8000원
-                    </div>
+                        <P style="margin-bottom: 0px">돈까스</P>
+                        <p>8000원</p>
+                    </div></a>
 
-                    <div class="food-menu">
+                    <a href=""><div class="food-menu">
                         <img src="{% static 'img/coldnoodle.jpeg'%}" style="width:100%;">
-                        냉면
-                        5000원
-                    </div>
+                        <p style="margin-bottom: 0px">냉면</p>
+                        <p>5000원</p>
+                    </div></a>
 
-                    <div class="food-menu">
+                    <a href=""><div class="food-menu">
                         <img src="{% static 'img/dumpling.jpg'%}" style="width:100%;">
-                        만두
-                        3000원
-                    </div>
+                        <p style="margin-bottom: 0px">만두</p>
+                        <p>3000원</p>
+                    </div></a>
                 </div>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="side">
                 <div class="picked-view">
-                    <div class="side-menu">
+                    <a href=""><div class="side-menu">
                         <img src="{% static 'img/homerunball.jpg'%}" style="width:100%;">
-                        홈런볼 1000원
-                    </div>
+                        <p style="margin-bottom: 0px">홈런볼</p>
+                        <p>1000원</p>
+                    </div></a>
 
-                    <div class="side-menu">
-                        편의용품세트 1000원
-                    </div>
+                    <a href=""><div class="side-menu">
+                        <img src="{% static 'img/chopstick.jpeg'%}" style="width:100%;">
+                        <p style="margin-bottom: 0px">편의세트</p>
+                        <p>1000원</p>
+                    </div></a>
                 </div>
             </div>
 
@@ -108,12 +119,13 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div>
+    <div class="what-i-picked">
         여기에 추가하기
     </div>
 
-</div>
+
 
 <script type="text/javascript">
     $('div.pick-food-navbar a').on('click', function (e) {
