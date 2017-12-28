@@ -64,7 +64,9 @@
 
     .what-i-picked > .food-menu, .what-i-picked > .side-menu {
         width:100px;
+        display: inline-block;
     }
+
 </style>
 {% endblock %}
 
@@ -81,19 +83,19 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="mainmenu">
                 <div class="picked-view">
-                    <a class="pick-my-food"><div class="food-menu">
+                    <a class="pick-my-food"><div class="food-menu" id="menu-1">
                         <img src="{% static 'img/porkcutlet.jpeg'%}" style="width:100%;">
                         <P style="margin-bottom: 0px">돈까스</P>
-                        <p>8000원</p>
+                        <p class="price">8000원</p>
                     </div></a>
 
-                    <a class="pick-my-food"><div class="food-menu">
+                    <a class="pick-my-food"><div class="food-menu" id="2">
                         <img src="{% static 'img/coldnoodle.jpeg'%}" style="width:100%;">
                         <p style="margin-bottom: 0px">냉면</p>
                         <p>5000원</p>
                     </div></a>
 
-                    <a class="pick-my-food"><div class="food-menu">
+                    <a class="pick-my-food"><div class="food-menu" id="3">
                         <img src="{% static 'img/dumpling.jpg'%}" style="width:100%;">
                         <p style="margin-bottom: 0px">만두</p>
                         <p>3000원</p>
@@ -124,9 +126,7 @@
     </div>
 </div>
 
-    <div class="what-i-picked">
-        여기에 추가하기
-    </div>
+    <div class="what-i-picked"></div>
 
 
 
@@ -138,9 +138,17 @@
         $(this).addClass('active');
     });
 
+    var countclick = 1;
     $('.pick-my-food').click(function(){
-        $(this).children().clone().appendTo('.what-i-picked');
-    })
+        var pickedid = $(this).children().attr("id");
+        if($(".what-i-picked > #"+pickedid).length == 0) {
+            $(this).children().clone().appendTo(".what-i-picked");
+            $("<p id='count-click'><span>"+countclick+"</span>개</p>").insertAfter(".what-i-picked .price");
+        }   else {
+            countclick = countclick + 1
+            $('#count-click span').replaceWith("<span>"+countclick+"</span");
+        }
+    });
 </script>
 
 {% endblock %}
