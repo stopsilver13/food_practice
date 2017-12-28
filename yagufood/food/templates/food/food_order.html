@@ -93,20 +93,19 @@
                     <a class="pick-my-food"><div class="food-menu" id="menu-1" value="1">
                         <img src="{% static 'img/porkcutlet.jpeg'%}" style="width:100%;">
                         <P style="margin-bottom: 0px">돈까스</P>
-                        <p id="price1">8000원</p>
-                        <span id="displaycount"></span>
+                        <p id="price1"><span>8000</span>원</p>
                     </div></a>
 
                     <a class="pick-my-food"><div class="food-menu" id="menu-2" value="2">
                         <img src="{% static 'img/coldnoodle.jpeg'%}" style="width:100%;">
                         <p style="margin-bottom: 0px">냉면</p>
-                        <p id="price2">5000원</p>
+                        <p id="price2"><span>5000</span>원</p>
                     </div></a>
 
                     <a class="pick-my-food"><div class="food-menu" id="menu-3" value="3">
                         <img src="{% static 'img/dumpling.jpg'%}" style="width:100%;">
                         <p style="margin-bottom: 0px">만두</p>
-                        <p id="price3">3000원</p>
+                        <p id="price3"><span>3000</span>원</p>
                     </div></a>
                 </div>
             </div>
@@ -151,18 +150,23 @@
         var pickedid = $(this).children().attr("id");
         if($(".what-i-picked > #"+pickedid).length == 0) {
             $(this).children().clone().appendTo(".what-i-picked");
-            $("<p id='count-click'><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=sub-button-"+ pickedid +">-</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));
+            $("<p><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=sub-button-"+ pickedid +">-</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));
         }   else {
-            countclick = Number($('span#' + pickedid).html()) + 1
-            $('#count-click span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
+            countclick = Number($('span#' + pickedid).html()) + 1;
+            var price_per_unit = Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
+            $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
+            $(".what-i-picked #price"+ $(this).children().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
         }
         $('.sub-button-'+ pickedid).unbind("click")
         $('.sub-button-'+ pickedid).click(function(){
             countclick = Number($('span#' + pickedid).html()) - 1
+            var price_per_unit = Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
             if(countclick == 0 ) {
                 $('.sub-button-'+ pickedid).parent().remove();
+                alert("해당 메뉴를 취소하였습니다")
             }
-            $('#count-click span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
+            $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
+            $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
         })
     });
 
