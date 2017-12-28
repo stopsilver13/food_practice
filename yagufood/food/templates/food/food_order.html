@@ -151,13 +151,20 @@
         var pickedid = $(this).children().attr("id");
         if($(".what-i-picked > #"+pickedid).length == 0) {
             $(this).children().clone().appendTo(".what-i-picked");
-            $("<p id='count-click'><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class='sub-button'>-</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));
+            $("<p id='count-click'><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=sub-button-"+ pickedid +">-</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));
         }   else {
             countclick = Number($('span#' + pickedid).html()) + 1
             console.log(countclick)
             $('#count-click span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
         }
+        $('.sub-button-'+ pickedid).unbind("click")
+        $('.sub-button-'+ pickedid).click(function(){
+            countclick = Number($('span#' + pickedid).html()) - 1
+            $('#count-click span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
+        })
     });
+
+    
 
 
 </script>
