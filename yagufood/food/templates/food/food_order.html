@@ -154,17 +154,19 @@
             $("<p id='count-click'><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=sub-button-"+ pickedid +">-</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));
         }   else {
             countclick = Number($('span#' + pickedid).html()) + 1
-            console.log(countclick)
             $('#count-click span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
         }
         $('.sub-button-'+ pickedid).unbind("click")
         $('.sub-button-'+ pickedid).click(function(){
             countclick = Number($('span#' + pickedid).html()) - 1
+            if(countclick == 0 ) {
+                $('.sub-button-'+ pickedid).parent().remove();
+            }
             $('#count-click span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
         })
     });
 
-    
+
 
 
 </script>
