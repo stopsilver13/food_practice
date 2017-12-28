@@ -57,14 +57,21 @@
     .what-i-picked {
         background-color: black;
         position: fixed;
-        height: 150px;
+        height: 250px;
         bottom: 0;
         width: 100%;
+        color: white;
     }
 
     .what-i-picked > .food-menu, .what-i-picked > .side-menu {
         width:100px;
         display: inline-block;
+        vertical-align: top;
+    }
+
+    button {
+        width: 10px;
+        color: black;
     }
 
 </style>
@@ -83,22 +90,23 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="mainmenu">
                 <div class="picked-view">
-                    <a class="pick-my-food"><div class="food-menu" id="menu-1">
+                    <a class="pick-my-food"><div class="food-menu" id="menu-1" value="1">
                         <img src="{% static 'img/porkcutlet.jpeg'%}" style="width:100%;">
                         <P style="margin-bottom: 0px">돈까스</P>
-                        <p class="price">8000원</p>
+                        <p id="price1">8000원</p>
+                        <span id="displaycount"></span>
                     </div></a>
 
-                    <a class="pick-my-food"><div class="food-menu" id="2">
+                    <a class="pick-my-food"><div class="food-menu" id="menu-2" value="2">
                         <img src="{% static 'img/coldnoodle.jpeg'%}" style="width:100%;">
                         <p style="margin-bottom: 0px">냉면</p>
-                        <p>5000원</p>
+                        <p id="price2">5000원</p>
                     </div></a>
 
-                    <a class="pick-my-food"><div class="food-menu" id="3">
+                    <a class="pick-my-food"><div class="food-menu" id="menu-3" value="3">
                         <img src="{% static 'img/dumpling.jpg'%}" style="width:100%;">
                         <p style="margin-bottom: 0px">만두</p>
-                        <p>3000원</p>
+                        <p id="price3">3000원</p>
                     </div></a>
                 </div>
             </div>
@@ -138,17 +146,20 @@
         $(this).addClass('active');
     });
 
-    var countclick = 1;
+    var countclick_defalut = 1;
     $('.pick-my-food').click(function(){
         var pickedid = $(this).children().attr("id");
         if($(".what-i-picked > #"+pickedid).length == 0) {
             $(this).children().clone().appendTo(".what-i-picked");
-            $("<p id='count-click'><span>"+countclick+"</span>개</p>").insertAfter(".what-i-picked .price");
+            $("<p id='count-click'><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class='sub-button'>-</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));
         }   else {
-            countclick = countclick + 1
-            $('#count-click span').replaceWith("<span>"+countclick+"</span");
+            countclick = Number($('span#' + pickedid).html()) + 1
+            console.log(countclick)
+            $('#count-click span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
         }
     });
+
+
 </script>
 
 {% endblock %}
