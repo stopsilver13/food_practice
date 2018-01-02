@@ -20,4 +20,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^food/', include('food.urls', namespace='food')),
+    url(r'^yagujango/', include('yagujango.urls', namespace='yagujango')),
 ]
