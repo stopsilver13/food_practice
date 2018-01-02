@@ -74,6 +74,11 @@
         color: black;
     }
 
+    #total-price {
+        float: right;
+        margin-top: 75px;
+    }
+
 </style>
 {% endblock %}
 
@@ -133,10 +138,14 @@
     </div>
 </div>
 
-    <div class="what-i-picked"></div>
+    <div class="what-i-picked">
+        <div id="total-price">
+            총액: <span id="price-sum"></span>원
+        </div>
+    </div>
 
 
-
+ <!-- 메인메뉴, 사이드, 음료 왔다갔다하는 네브 바-->
 <script type="text/javascript">
     $('div.pick-food-navbar a').on('click', function (e) {
         e.preventDefault();
@@ -145,33 +154,52 @@
         $(this).addClass('active');
     });
 
+// 메뉴 클릭했을 때 작동
     var countclick_defalut = 1;
+    var chongaek = 0;
     $('.pick-my-food').click(function(){
         var pickedid = $(this).children().attr("id");
-        if($(".what-i-picked > #"+pickedid).length == 0) {
+        if($(".what-i-picked > #"+pickedid).length == 0) {           //장바구니에 메뉴가 없으면 추가
             $(this).children().clone().appendTo(".what-i-picked");
-            $("<p><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=sub-button-"+ pickedid +">-</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));
-        }   else {
+            $("<p><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=sub-button-"+ pickedid +">-</button><button class=plus-button-"+ pickedid +">+</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));   //갯수, +,-버튼 생성
+
+        }   else {          //장바구니에 메뉴가 있으면 갯수 올라가게 하는 로직
             countclick = Number($('span#' + pickedid).html()) + 1;
             var price_per_unit = Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
             $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
             $(".what-i-picked #price"+ $(this).children().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
-        }
-        $('.sub-button-'+ pickedid).unbind("click")
+        };
+
+        // 총액 금액 반영
+        chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
+        $("#price-sum").text(chongaek);
+
+        //빼기버튼 누르면 갯수랑 금액 줄어들고 총액 반영까지
+        $('.sub-button-'+ pickedid).unbind("click");
         $('.sub-button-'+ pickedid).click(function(){
-            countclick = Number($('span#' + pickedid).html()) - 1
+            countclick = Number($('span#' + pickedid).html()) - 1;
             var price_per_unit = Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
-            if(countclick == 0 ) {
+            if(countclick == 0 ) {  // 갯수 0개 되면 알림뜨면서 메뉴 사라지고
                 $('.sub-button-'+ pickedid).parent().remove();
                 alert("해당 메뉴를 취소하였습니다")
             }
             $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
             $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
-        })
+            chongaek = chongaek - Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
+            $("#price-sum").text(chongaek);
+        });
+
+        //더하기 버튼 누르면 갯수랑 금액 올라가고 총액 반영까지
+        $('.plus-button-'+ pickedid).unbind("click");
+        $('.plus-button-'+ pickedid).click(function(){
+            countclick = Number($('span#' + pickedid).html()) + 1;
+            var price_per_unit = Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
+            $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
+            $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
+            chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
+            $("#price-sum").text(chongaek);
+        });
     });
-
-
-
 
 </script>
 
