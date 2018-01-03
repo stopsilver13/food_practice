@@ -79,6 +79,10 @@
         margin-top: 75px;
     }
 
+    #empty-basket {
+        float: right;
+    }
+
 </style>
 {% endblock %}
 
@@ -167,6 +171,7 @@
         <div id="total-price">
             총액: <span id="price-sum"></span>원
         </div>
+        <button id="empty-basket">비우기</button>
     </div>
 
 
@@ -225,6 +230,12 @@
             $("#price-sum").text(chongaek);
         });
     });
+
+    $('#empty-basket').click(function(){
+        $('.what-i-picked > .food-menu').remove();
+        var chongaek = 0;
+        $("#price-sum").text(chongaek);
+    })
 
 </script>
 
