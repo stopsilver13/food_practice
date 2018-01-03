@@ -12,7 +12,7 @@
 
 <style type="text/css">
     .picked-view {
-        height: 800px;
+        /*height: 800px;*/
     }
 
     .food-menu, .side-menu {
@@ -100,15 +100,18 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="main">
                 <div class="picked-view">
-            {% for menu in menus %}
+            {% for foodstore in foodstores %}
+                <h2>{{ foodstore.name }}</h2>
+                {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'main' %}
-                            <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
-                                <img src="{{ menu.photo.url }}" style="width:100%;">
-                                <P style="margin-bottom: 0px">{{ menu.store }}</P>
-                                <P style="margin-bottom: 0px">{{ menu.name }}</P>
-                                <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
-                            </div></a>
+                    <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
+                        <img src="{{ menu.photo.url }}" style="width:100%;">
+                        <P style="margin-bottom: 0px">{{ menu.store }}</P>
+                        <P style="margin-bottom: 0px">{{ menu.name }}</P>
+                        <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                    </div></a>
                 {% endif %}
+                {% endfor %}
             {% endfor %}
 
                 </div>
@@ -119,12 +122,12 @@
 
             {% for menu in menus %}
                 {% if menu.group == 'side' %}
-                            <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
-                                <img src="{{ menu.photo.url }}" style="width:100%;">
-                                <P style="margin-bottom: 0px">{{ menu.store }}</P>
-                                <P style="margin-bottom: 0px">{{ menu.name }}</P>
-                                <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
-                            </div></a>
+                    <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
+                        <img src="{{ menu.photo.url }}" style="width:100%;">
+                        <P style="margin-bottom: 0px">{{ menu.store }}</P>
+                        <P style="margin-bottom: 0px">{{ menu.name }}</P>
+                        <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                    </div></a>
                 {% endif %}
             {% endfor %}
 
@@ -136,12 +139,12 @@
 
             {% for menu in menus %}
                 {% if menu.group == 'drink' %}
-                            <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
-                                <img src="{{ menu.photo.url }}" style="width:100%;">
-                                <P style="margin-bottom: 0px">{{ menu.store }}</P>
-                                <P style="margin-bottom: 0px">{{ menu.name }}</P>
-                                <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
-                            </div></a>
+                    <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
+                        <img src="{{ menu.photo.url }}" style="width:100%;">
+                        <P style="margin-bottom: 0px">{{ menu.store }}</P>
+                        <P style="margin-bottom: 0px">{{ menu.name }}</P>
+                        <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                    </div></a>
                 {% endif %}
             {% endfor %}
 
