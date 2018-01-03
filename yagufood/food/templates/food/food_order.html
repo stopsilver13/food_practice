@@ -55,9 +55,8 @@
     }
 
     .what-i-picked {
-        background-color: black;
+        background-color: rgba(0,0,0,0.7);
         position: fixed;
-        height: 250px;
         bottom: 0;
         width: 100%;
         color: white;
@@ -72,6 +71,7 @@
     button {
         width: 10px;
         color: black;
+        display: inline-block;
     }
 
     #total-price {
@@ -186,7 +186,7 @@
         var pickedid = $(this).children().attr("id");
         if($(".what-i-picked > #"+pickedid).length == 0) {           //장바구니에 메뉴가 없으면 추가
             $(this).children().clone().appendTo(".what-i-picked");
-            $("<p><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=sub-button-"+ pickedid +">-</button><button class=plus-button-"+ pickedid +">+</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));   //갯수, +,-버튼 생성
+            $("<button class=sub-button-"+ pickedid +">-</button><p style='display: inline-block;'><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=plus-button-"+ pickedid +">+</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));   //갯수, +,-버튼 생성
 
         }   else {          //장바구니에 메뉴가 있으면 갯수 올라가게 하는 로직
             countclick = Number($('span#' + pickedid).html()) + 1;
