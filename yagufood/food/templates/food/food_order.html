@@ -43,7 +43,7 @@
 
     .pick-food-navbar a {
         display: inline-block;
-        width: 33.33%;
+        width: 25%;
         background-color: #e0e0e0;
         padding: 7px 10px;
         font-size: 17px;
@@ -87,52 +87,77 @@
 <div class="content_in">
     <div class="pick-food-section">
         <div class="pick-food-navbar">
-            <a href="#mainmenu" class="active" data-toggle="tab">1. 메인메뉴</a>
+            <a href="#main" class="active" data-toggle="tab">1. 메인메뉴</a>
             <a href="#side" data-toggle="tab">2. 사이드</a>
-            <a href="#beverage" data-toggle="tab">3. 음료</a>
+            <a href="#drink" data-toggle="tab">3. 음료</a>
+            <a href="#etc" data-toggle="tab">4. 기타</a>
         </div>
 
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="mainmenu">
+            <div role="tabpanel" class="tab-pane active" id="main">
                 <div class="picked-view">
-                    <a class="pick-my-food"><div class="food-menu" id="menu-1" value="1">
-                        <img src="{% static 'img/porkcutlet.jpeg'%}" style="width:100%;">
-                        <P style="margin-bottom: 0px">돈까스</P>
-                        <p id="price1"><span>8000</span>원</p>
-                    </div></a>
+            {% for menu in menus %}
+                {% if menu.group == 'main' %}
+                            <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
+                                <img src="{{ menu.photo.url }}" style="width:100%;">
+                                <P style="margin-bottom: 0px">{{ menu.store }}</P>
+                                <P style="margin-bottom: 0px">{{ menu.name }}</P>
+                                <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                            </div></a>
+                {% endif %}
+            {% endfor %}
 
-                    <a class="pick-my-food"><div class="food-menu" id="menu-2" value="2">
-                        <img src="{% static 'img/coldnoodle.jpeg'%}" style="width:100%;">
-                        <p style="margin-bottom: 0px">냉면</p>
-                        <p id="price2"><span>5000</span>원</p>
-                    </div></a>
-
-                    <a class="pick-my-food"><div class="food-menu" id="menu-3" value="3">
-                        <img src="{% static 'img/dumpling.jpg'%}" style="width:100%;">
-                        <p style="margin-bottom: 0px">만두</p>
-                        <p id="price3"><span>3000</span>원</p>
-                    </div></a>
                 </div>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="side">
                 <div class="picked-view">
-                    <a class="pick-my-food"><div class="side-menu">
-                        <img src="{% static 'img/homerunball.jpg'%}" style="width:100%;">
-                        <p style="margin-bottom: 0px">홈런볼</p>
-                        <p>1000원</p>
-                    </div></a>
 
-                    <a class="pick-my-food"><div class="side-menu">
-                        <img src="{% static 'img/chopstick.jpeg'%}" style="width:100%;">
-                        <p style="margin-bottom: 0px">편의세트</p>
-                        <p>1000원</p>
-                    </div></a>
+            {% for menu in menus %}
+                {% if menu.group == 'side' %}
+                            <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
+                                <img src="{{ menu.photo.url }}" style="width:100%;">
+                                <P style="margin-bottom: 0px">{{ menu.store }}</P>
+                                <P style="margin-bottom: 0px">{{ menu.name }}</P>
+                                <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                            </div></a>
+                {% endif %}
+            {% endfor %}
+
                 </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane" id="beverage">
+            <div role="tabpanel" class="tab-pane" id="drink">
+                <div class="picked-view">
 
+            {% for menu in menus %}
+                {% if menu.group == 'drink' %}
+                            <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
+                                <img src="{{ menu.photo.url }}" style="width:100%;">
+                                <P style="margin-bottom: 0px">{{ menu.store }}</P>
+                                <P style="margin-bottom: 0px">{{ menu.name }}</P>
+                                <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                            </div></a>
+                {% endif %}
+            {% endfor %}
+
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="etc">
+                <div class="picked-view">
+
+            {% for menu in menus %}
+                {% if menu.group == 'etc' %}
+                            <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
+                                <img src="{{ menu.photo.url }}" style="width:100%;">
+                                <P style="margin-bottom: 0px">{{ menu.store }}</P>
+                                <P style="margin-bottom: 0px">{{ menu.name }}</P>
+                                <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                            </div></a>
+                {% endif %}
+            {% endfor %}
+
+                </div>
             </div>
         </div>
     </div>
