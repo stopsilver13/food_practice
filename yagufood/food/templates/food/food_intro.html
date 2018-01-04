@@ -1,0 +1,90 @@
+{% extends "nav_footer.html" %}
+
+{% load staticfiles %}
+
+
+{% block title %}
+    음식 intro
+{% endblock %}
+
+{% block head_extra %}
+
+<style>
+	.promotion_part {
+		height: 500px;
+		margin-top: 30px;
+		padding-top: 90px;
+		
+	}
+	.promotion_part>h3 {
+		padding-left: 190px;
+		font-family: "a고딕15";
+		font-size: 30pt;
+	}
+	.promotion_yagujango {
+		padding-left: 190px;
+		font-family: "a고딕15";
+		font-size: 40pt;
+	}
+	.promotion_store, .service_place {
+		font-size: 36pt;
+		color: #b70000;
+	}
+	.promotion_emphasis {
+		padding-left: 190px;
+		font-family: "a고딕15";
+		font-size: 50pt;
+	}
+	.service_explain {
+		margin: 50px 150px;
+	}
+	.service_notice {
+		background-color: #eaeaea;
+		padding: 10px 70px;
+	}
+	.when_where {
+		padding: 20px 70px;
+		margin-bottom: 50px;
+		text-align: center;
+	}
+	.go_order {
+		margin-left: 20px;
+		background-color: #b70000;
+		border: none;
+		border-radius: 5px;
+		color: #fff;
+		height: 30px;
+	}
+	
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="content_in">
+	<div class="promotion_part" style="background: url({% static 'img/dacgangjung.jpg' %}) center center no-repeat; background-size: contain;">
+		<h2 class="promotion_yagujango">야구장고,</h2>
+		<h3><span class="promotion_store">김판조 닭강정</span>을 <span class="service_place">야구장</span>에서?</h3>
+		<h2 class="promotion_emphasis">이걸?!</h2>
+
+		<p class="service_explain">야구장 안에서 사먹자니 비싸고 맛없고, 밖에서 사오자니 귀찮고 번거롭고... 야구장고가 그동안 먹고 싶었던 맛집의 메뉴들을 야구장으로 가져다 드립니다. 이제 야구장고에서 한번에 주문하고 편하게 받으세요. 당신의 즐거운 직관을 응원합니다. - 야구장고</p>
+	</div>
+
+	<div class="service_notice">
+		<h3>서비스 알림</h3>
+		<p>* 주문은 원하는 경기날짜 2일전 24시까지 가능합니다.(ex. 4월 3일 경기는 4월 1일 24시까지 주문가능)</p>
+		<p>* 환불은 경기날짜 2일전 24시까지 100%, 경기 전날 18시까지 80%, 이후 취소에 대해서는 환불해드리지 않습니다.</p>
+		<p>* 경기 시작 전 30분까지 와주세요. 이후 수령시 음식 상태에 대해 책임을 지지 않습니다.</p>
+	</div>
+
+	<div class="when_where">
+		<h3>언제, 어디로 직관을 가시나요?</h3>
+		<form action="" method="POST">
+			{% csrf_token %}
+			2018년 <input type="text"> 월 <input type="text"> 일에 <input type="text" id="stadium" name="stadium"> 로 !!
+			<button type="submit" class="go_order">주문하러가기</button>
+		</form>
+	</div>
+</div>
+{% endblock %}
