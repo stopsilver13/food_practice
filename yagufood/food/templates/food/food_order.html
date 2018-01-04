@@ -83,6 +83,14 @@
         float: right;
     }
 
+    .modal {
+        margin-top: 150px;
+    }
+
+    .foodstore_name {
+        display: inline-block;
+    }
+
 </style>
 {% endblock %}
 
@@ -102,7 +110,7 @@
                 <div class="picked-view">
             {% for foodstore in foodstores %}
             {% if foodstore.is_contain_main == True %}
-                <h2>{{ foodstore.name }}</h2>
+                <a data-toggle="modal" data-target="#myModal1-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br> <!-- 누르면 모달 나오는부분 -->
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'main' %}
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
@@ -113,6 +121,24 @@
                     </div></a>
                 {% endif %}
                 {% endfor %}
+            <!-- 모달 div -->
+            <div id="myModal1-{{ foodstore.pk }}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h2 class="modal-title">{{ foodstore.name }}</h2>
+                        </div>
+
+                        <div class="modal-body">
+                            <img src="{{ foodstore.photo.url }}">
+                            <h4>주소 : {{ foodstore.address }}</h4>
+                            <h4>연락처 : {{ foodstore.contact }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             {% endif %}
             {% endfor %}
 
@@ -121,10 +147,10 @@
 
             <div role="tabpanel" class="tab-pane" id="side">
                 <div class="picked-view">
-            
+
             {% for foodstore in foodstores %}
             {% if foodstore.is_contain_side == True %}
-                <h2>{{ foodstore.name }}</h2>
+                <a data-toggle="modal" data-target="#myModal2-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br>
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'side' %}
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
@@ -135,6 +161,23 @@
                     </div></a>
                 {% endif %}
                 {% endfor %}
+            <div id="myModal2-{{ foodstore.pk }}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h2 class="modal-title">{{ foodstore.name }}</h2>
+                        </div>
+
+                        <div class="modal-body">
+                            <img src="{{ foodstore.photo.url }}">
+                            <h4>주소 : {{ foodstore.address }}</h4>
+                            <h4>연락처 : {{ foodstore.contact }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             {% endif %}
             {% endfor %}
 
@@ -146,7 +189,7 @@
 
             {% for foodstore in foodstores %}
             {% if foodstore.is_contain_drink == True %}
-                <h2>{{ foodstore.name }}</h2>
+                <a data-toggle="modal" data-target="#myModal3-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a>  <br>
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'drink' %}
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
@@ -157,6 +200,23 @@
                     </div></a>
                 {% endif %}
                 {% endfor %}
+            <div id="myModal3-{{ foodstore.pk }}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h2 class="modal-title">{{ foodstore.name }}</h2>
+                        </div>
+
+                        <div class="modal-body">
+                            <img src="{{ foodstore.photo.url }}">
+                            <h4>주소 : {{ foodstore.address }}</h4>
+                            <h4>연락처 : {{ foodstore.contact }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             {% endif %}
             {% endfor %}
 
@@ -167,7 +227,7 @@
 
             {% for foodstore in foodstores %}
             {% if foodstore.is_contain_etc == True %}
-                <h2>{{ foodstore.name }}</h2>
+                <a data-toggle="modal" data-target="#myModal4-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br>
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'etc' %}
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
@@ -178,6 +238,23 @@
                     </div></a>
                 {% endif %}
                 {% endfor %}
+            <div id="myModal4-{{ foodstore.pk }}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h2 class="modal-title">{{ foodstore.name }}</h2>
+                        </div>
+
+                        <div class="modal-body">
+                            <img src="{{ foodstore.photo.url }}">
+                            <h4>주소 : {{ foodstore.address }}</h4>
+                            <h4>연락처 : {{ foodstore.contact }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             {% endif %}
             {% endfor %}
 
