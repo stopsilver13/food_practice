@@ -6,7 +6,7 @@ from food.models import Foodstore, Menu
 class FoodstoreAdmin(admin.ModelAdmin):
 	list_display = ['name', 'category', 'contact']
 	list_display_link = ['name', 'category', 'contact']
-	list_filter = ['category']
+	list_filter = ['category', 'is_contain_main', 'is_contain_side', 'is_contain_drink', 'is_contain_etc']
 	search_fields = ['name']
 
 @admin.register(Menu)

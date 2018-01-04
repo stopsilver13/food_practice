@@ -101,6 +101,7 @@
             <div role="tabpanel" class="tab-pane active" id="main">
                 <div class="picked-view">
             {% for foodstore in foodstores %}
+            {% if foodstore.is_contain_main == True %}
                 <h2>{{ foodstore.name }}</h2>
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'main' %}
@@ -112,6 +113,7 @@
                     </div></a>
                 {% endif %}
                 {% endfor %}
+            {% endif %}
             {% endfor %}
 
                 </div>
@@ -119,8 +121,11 @@
 
             <div role="tabpanel" class="tab-pane" id="side">
                 <div class="picked-view">
-
-            {% for menu in menus %}
+            
+            {% for foodstore in foodstores %}
+            {% if foodstore.is_contain_side == True %}
+                <h2>{{ foodstore.name }}</h2>
+                {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'side' %}
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
                         <img src="{{ menu.photo.url }}" style="width:100%;">
@@ -129,6 +134,8 @@
                         <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
                     </div></a>
                 {% endif %}
+                {% endfor %}
+            {% endif %}
             {% endfor %}
 
                 </div>
@@ -137,7 +144,10 @@
             <div role="tabpanel" class="tab-pane" id="drink">
                 <div class="picked-view">
 
-            {% for menu in menus %}
+            {% for foodstore in foodstores %}
+            {% if foodstore.is_contain_drink == True %}
+                <h2>{{ foodstore.name }}</h2>
+                {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'drink' %}
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
                         <img src="{{ menu.photo.url }}" style="width:100%;">
@@ -146,6 +156,8 @@
                         <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
                     </div></a>
                 {% endif %}
+                {% endfor %}
+            {% endif %}
             {% endfor %}
 
                 </div>
@@ -153,15 +165,20 @@
             <div role="tabpanel" class="tab-pane" id="etc">
                 <div class="picked-view">
 
-            {% for menu in menus %}
+            {% for foodstore in foodstores %}
+            {% if foodstore.is_contain_etc == True %}
+                <h2>{{ foodstore.name }}</h2>
+                {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'etc' %}
-                            <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
-                                <img src="{{ menu.photo.url }}" style="width:100%;">
-                                <P style="margin-bottom: 0px">{{ menu.store }}</P>
-                                <P style="margin-bottom: 0px">{{ menu.name }}</P>
-                                <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
-                            </div></a>
+                    <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
+                        <img src="{{ menu.photo.url }}" style="width:100%;">
+                        <P style="margin-bottom: 0px">{{ menu.store }}</P>
+                        <P style="margin-bottom: 0px">{{ menu.name }}</P>
+                        <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                    </div></a>
                 {% endif %}
+                {% endfor %}
+            {% endif %}
             {% endfor %}
 
                 </div>

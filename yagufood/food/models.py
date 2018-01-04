@@ -10,6 +10,11 @@ class Foodstore(models.Model):
     contact = models.CharField(max_length=20, blank=True)
     photo = models.ImageField(upload_to="admin/foodstore", blank=True)
 
+    is_contain_main = models.BooleanField(default=False)
+    is_contain_side = models.BooleanField(default=False)
+    is_contain_drink = models.BooleanField(default=False)
+    is_contain_etc = models.BooleanField(default=False)
+
     def __str__(self):
         return self.name
 
