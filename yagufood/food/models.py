@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from yagujango.models import Stadium
+import uuid
 
 FOOD_CATEGORY = [('korean', 'korean'), ('chinese', 'chinese'), ('american', 'american'), ('dessert', 'dessert'), ('etc', 'etc')]
 MENU_CATEGORY = [('main', 'main'), ('side', 'side'), ('drink', 'drink'), ('etc', 'etc')]
@@ -49,6 +50,7 @@ class DateMenuLimit(models.Model):
 
 
 class Order(models.Model):
+	uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	delivery_date = models.DateField()
 	contact = models.CharField(max_length=20)
