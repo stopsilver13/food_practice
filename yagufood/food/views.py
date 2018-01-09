@@ -45,8 +45,8 @@ def food_menu(request, date, stadium):
 		myorder = Order.objects.create(user=user, delivery_date=date, contact='-', total_price=total_price, paid_price=0, pain_point=0)
 		
 		for order in raw_orders:
-			if order[-1] != '0':
-				order = order.split('-')
+			order = order.split('-')
+			if order[1] != '0':
 				menu = Menu.objects.get(name=order[0])
 				amount = order[1]
 				OrderedMenu.objects.create(order=myorder, menu=menu, amount=amount)
