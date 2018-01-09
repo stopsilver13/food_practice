@@ -1,0 +1,96 @@
+{% extends "nav_footer.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+    음식 주문
+{% endblock %}
+
+{% block head_extra %}
+
+<style>
+
+	.my_order_list img {
+		width: 100px;
+	}
+	.my_order_list>table {
+		width: 100%;
+	}
+	table th {
+		padding: 10px;
+		text-align: center;
+	}
+	.total {
+		text-align: right;
+	}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content_in">
+	<div class="my_order">
+		<h1>나의 주문 내역</h1>
+
+		<div class="my_order_list">
+			<table>
+				<thead>
+					<tr>
+						<th>메뉴 사진</th>
+						<th>메뉴 이름</th>
+						<th>가격</th>
+						<th>수량</th>
+						<th>금액</th>
+					</tr>
+				</thead>
+
+				{% for order in order.orderedmenu_set.all %}
+				<tbody>
+					<tr>
+						<th><img src="{{ order.menu.photo.url }}" alt=""></th>
+						<th>{{ order.menu.name }}</th>
+						<th><span id="menu_price-{{ order.pk }}">{{ order.menu.price }}</span> 원</th>
+						<th><span id="menu_amount-{{ order.pk }}">{{ order.amount }}</span> 개</th>
+						<th><span id="howmuch-{{ order.pk }}"></span>원</th>
+					</tr>
+				</tbody>
+				
+				<script type="text/javascript">
+					var price = $('#menu_price-{{ order.pk }}').html();
+					var amount = $('#menu_amount-{{ order.pk }}').html();
+					$('#howmuch-{{ order.pk }}').html(price * amount);
+				</script>
+
+				{% endfor %}
+			</table>
+		</div>
+		<h2 class="total">총액 : {{ order.total_price }} 원</h2>
+	</div>
+
+	<hr>
+	
+	<form action="" method="POST">
+		{% csrf_token %}
+		<p>직관 날짜/장소 : {{ order.delivery_date }}, {{ order.delivery_stadium }}</p>
+		<p>받으시는 분 : {{ user }}</p>
+		<p>연락받을 번호 : <input type="text" name="contact" value="010-4609-8318" > <!-- {{ user.profile.phone }} --></p>
+
+		<hr>
+
+		<p>결제할 금액 : <input type="text" value="{{ order.total_price }}"> </p>
+		<p>사용할 포인트 : <input type="text"> (내 포인트 : 5300p)</p>
+		<p>(최대 3000포인트까지 사용 가능합니다.)</p>
+		<p>최종 결제 금액 : <input type="text" value=""></p>
+
+		<input type="submit" value="결제하기">
+
+	</form>
+
+</div>
+
+
+
+
+{% endblock %}

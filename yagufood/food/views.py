@@ -22,9 +22,9 @@ def food_intro(request):
 		return redirect('/food/menu/{}/{}'.format(date, stadium.en_name))
 
 	return render(request, 'food/food_intro.html', {
-		 'month': month,
-		 'day': day,
-		 'stadiums': stadiums,
+			'month': month,
+			'day': day,
+			'stadiums': stadiums,
 		})
 
 
@@ -36,13 +36,14 @@ def food_menu(request, date, stadium):
 
 	foodstores = DateStoreLimit.objects.filter(date=date, store__stadium=Stadium.objects.get(en_name=stadium))
 	menus = DateMenuLimit.objects.filter(date=date)
+	raw_date = date
 	date = date.split('-')
 	date = date[0] + '년 ' + date[1] + '월 ' + date[2] + '일'
 
 	if request.method =='POST':
 		raw_orders = request.POST.get('ordered_menus').split(',')
 		total_price = request.POST.get('total_price')
-		myorder = Order.objects.create(user=user, delivery_date=date, contact='-', total_price=total_price, paid_price=0, pain_point=0)
+		myorder = Order.objects.create(user=user, delivery_date=raw_date, contact='-', total_price=total_price, paid_price=0, paid_point=0)
 		
 		for order in raw_orders:
 			order = order.split('-')
@@ -61,5 +62,16 @@ def food_menu(request, date, stadium):
 			'date': date,
 		})
 
-def food_order(request):
-	pass
+def food_order(request, order_uuid):
+
+	user = request.user
+	order = Order.objects.get(uuid=order_uuid)
+
+	return render(request, 'food/food_order.html', {
+			'user' : user,
+			'order': order,
+		})
+
+
+
+

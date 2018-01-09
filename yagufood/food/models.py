@@ -53,6 +53,7 @@ class Order(models.Model):
 	uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	delivery_date = models.DateField()
+	delivery_stadium = models.ForeignKey(Stadium)
 	contact = models.CharField(max_length=20)
 	total_price = models.PositiveIntegerField()
 	paid_point = models.PositiveIntegerField()
