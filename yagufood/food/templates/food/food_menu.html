@@ -115,18 +115,18 @@
             <div role="tabpanel" class="tab-pane active" id="main">
                 <div class="picked-view">
             {% for foodstore in foodstores %}
-            {% if foodstore.is_contain_main == True %}
-                <a data-toggle="modal" data-target="#myModal1-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br> <!-- 누르면 모달 나오는부분 -->
-                {% for menu in foodstore.menu_set.all %}
-                {% if menu.group == 'main' %}
+            {% if foodstore.store.is_contain_main == True %}
+                <a data-toggle="modal" data-target="#myModal1-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.store.name }}</h2></a> <br> <!-- 누르면 모달 나오는부분 -->
+                {% for menu in foodstore.datemenulimit_set.all %}
+                {% if menu.menu.group == 'main' %}
                 <div style="display: inline-block;">
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
-                        <img src="{{ menu.photo.url }}" style="width:100%;">
-                        <P style="margin-bottom: 0px">{{ menu.store }}</P>
-                        <P style="margin-bottom: 0px">{{ menu.name }}</P>
-                        <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                        <img src="{{ menu.menu.photo.url }}" style="width:100%;">
+                        <P style="margin-bottom: 0px">{{ menu.store.store }}</P>
+                        <P style="margin-bottom: 0px">{{ menu.menu.name }}</P>
+                        <p id="price{{ menu.pk }}"><span>{{ menu.menu.price }}</span>원</p>
                     </div></a>
-                    <p style="display: block; text-align: center;">수량 : <span>{{ amount }}</span>개</p>
+                    <p style="display: block; text-align: center;">수량 : <span>{{ menu.remain_amount }}</span>개</p>
                 </div>
                 <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
@@ -138,13 +138,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h2 class="modal-title">{{ foodstore.name }}</h2>
+                            <h2 class="modal-title">{{ foodstore.store.name }}</h2>
                         </div>
 
                         <div class="modal-body">
-                            <img src="{{ foodstore.photo.url }}">
-                            <h4>주소 : {{ foodstore.address }}</h4>
-                            <h4>연락처 : {{ foodstore.contact }}</h4>
+                            <img src="{{ foodstore.store.photo.url }}">
+                            <h4>주소 : {{ foodstore.store.address }}</h4>
+                            <h4>연락처 : {{ foodstore.store.contact }}</h4>
                         </div>
                     </div>
                 </div>
@@ -161,18 +161,18 @@
             <div role="tabpanel" class="tab-pane" id="side">
                 <div class="picked-view">
             {% for foodstore in foodstores %}
-            {% if foodstore.is_contain_side == True %}
-                <a data-toggle="modal" data-target="#myModal2-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br>
-                {% for menu in foodstore.menu_set.all %}
-                {% if menu.group == 'side' %}
+            {% if foodstore.store.is_contain_side == True %}
+                <a data-toggle="modal" data-target="#myModal2-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.store.name }}</h2></a> <br>
+                {% for menu in foodstore.datemenulimit_set.all %}
+                {% if menu.menu.group == 'side' %}
                 <div  style="display: inline-block;">
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
-                        <img src="{{ menu.photo.url }}" style="width:100%;">
-                        <P style="margin-bottom: 0px">{{ menu.store }}</P>
-                        <P style="margin-bottom: 0px">{{ menu.name }}</P>
-                        <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                        <img src="{{ menu.menu.photo.url }}" style="width:100%;">
+                        <P style="margin-bottom: 0px">{{ menu.store.store }}</P>
+                        <P style="margin-bottom: 0px">{{ menu.menu.name }}</P>
+                        <p id="price{{ menu.pk }}"><span>{{ menu.menu.price }}</span>원</p>
                     </div></a>
-                    <p style="display: block; text-align: center;">수량 : <span>{{ amount }}</span>개</p>
+                    <p style="display: block; text-align: center;">수량 : <span>{{ menu.remain_amount }}</span>개</p>
                 </div>
                 <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
@@ -184,13 +184,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h2 class="modal-title">{{ foodstore.name }}</h2>
+                            <h2 class="modal-title">{{ foodstore.store.name }}</h2>
                         </div>
 
                         <div class="modal-body">
-                            <img src="{{ foodstore.photo.url }}">
-                            <h4>주소 : {{ foodstore.address }}</h4>
-                            <h4>연락처 : {{ foodstore.contact }}</h4>
+                            <img src="{{ foodstore.store.photo.url }}">
+                            <h4>주소 : {{ foodstore.store.address }}</h4>
+                            <h4>연락처 : {{ foodstore.store.contact }}</h4>
                         </div>
                     </div>
                 </div>
@@ -207,18 +207,18 @@
             <div role="tabpanel" class="tab-pane" id="drink">
                 <div class="picked-view">
             {% for foodstore in foodstores %}
-            {% if foodstore.is_contain_drink == True %}
-                <a data-toggle="modal" data-target="#myModal3-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a>  <br>
-                {% for menu in foodstore.menu_set.all %}
-                {% if menu.group == 'drink' %}
+            {% if foodstore.store.is_contain_drink == True %}
+                <a data-toggle="modal" data-target="#myModal3-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.store.name }}</h2></a>  <br>
+                {% for menu in foodstore.datemenulimit_set.all %}
+                {% if menu.menu.group == 'drink' %}
                 <div style="display: inline-block;">
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
-                        <img src="{{ menu.photo.url }}" style="width:100%;">
-                        <P style="margin-bottom: 0px">{{ menu.store }}</P>
-                        <P style="margin-bottom: 0px">{{ menu.name }}</P>
-                        <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                        <img src="{{ menu.menu.photo.url }}" style="width:100%;">
+                        <P style="margin-bottom: 0px">{{ menu.store.store }}</P>
+                        <P style="margin-bottom: 0px">{{ menu.menu.name }}</P>
+                        <p id="price{{ menu.pk }}"><span>{{ menu.menu.price }}</span>원</p>
                     </div></a>
-                    <p style="display: block; text-align: center;">수량 : <span>{{ amount }}</span>개</p>
+                    <p style="display: block; text-align: center;">수량 : <span>{{ menu.remain_amount }}</span>개</p>
                 </div>
                 <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
@@ -230,13 +230,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h2 class="modal-title">{{ foodstore.name }}</h2>
+                            <h2 class="modal-title">{{ foodstore.store.name }}</h2>
                         </div>
 
                         <div class="modal-body">
-                            <img src="{{ foodstore.photo.url }}">
-                            <h4>주소 : {{ foodstore.address }}</h4>
-                            <h4>연락처 : {{ foodstore.contact }}</h4>
+                            <img src="{{ foodstore.store.photo.url }}">
+                            <h4>주소 : {{ foodstore.store.address }}</h4>
+                            <h4>연락처 : {{ foodstore.store.contact }}</h4>
                         </div>
                     </div>
                 </div>
@@ -253,18 +253,18 @@
             <div role="tabpanel" class="tab-pane" id="etc">
                 <div class="picked-view">
             {% for foodstore in foodstores %}
-            {% if foodstore.is_contain_etc == True %}
-                <a data-toggle="modal" data-target="#myModal4-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br>
-                {% for menu in foodstore.menu_set.all %}
-                {% if menu.group == 'etc' %}
+            {% if foodstore.store.is_contain_etc == True %}
+                <a data-toggle="modal" data-target="#myModal4-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.store.name }}</h2></a> <br>
+                {% for menu in foodstore.datemenulimit_set.all %}
+                {% if menu.menu.group == 'etc' %}
                 <div style="display: inline-block;">
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
-                        <img src="{{ menu.photo.url }}" style="width:100%;">
-                        <P style="margin-bottom: 0px">{{ menu.store }}</P>
-                        <P style="margin-bottom: 0px">{{ menu.name }}</P>
-                        <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
+                        <img src="{{ menu.menu.photo.url }}" style="width:100%;">
+                        <P style="margin-bottom: 0px">{{ menu.menu.store }}</P>
+                        <P style="margin-bottom: 0px">{{ menu.menu.name }}</P>
+                        <p id="price{{ menu.pk }}"><span>{{ menu.menu.price }}</span>원</p>
                     </div></a>
-                    <p style="display: block; text-align: center;">수량 : <span>{{ amount }}</span>개</p>
+                    <p style="display: block; text-align: center;">수량 : <span>{{ menu.reamin_amount }}</span>개</p>
                 </div>
                 <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
@@ -276,13 +276,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h2 class="modal-title">{{ foodstore.name }}</h2>
+                            <h2 class="modal-title">{{ foodstore.store.name }}</h2>
                         </div>
 
                         <div class="modal-body">
-                            <img src="{{ foodstore.photo.url }}">
-                            <h4>주소 : {{ foodstore.address }}</h4>
-                            <h4>연락처 : {{ foodstore.contact }}</h4>
+                            <img src="{{ foodstore.store.photo.url }}">
+                            <h4>주소 : {{ foodstore.stoer.address }}</h4>
+                            <h4>연락처 : {{ foodstore.store.contact }}</h4>
                         </div>
                     </div>
                 </div>

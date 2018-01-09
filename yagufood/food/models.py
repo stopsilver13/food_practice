@@ -47,8 +47,6 @@ class DateMenuLimit(models.Model):
 	menu = models.ForeignKey(Menu)
 	remain_amount = models.PositiveIntegerField(default=0)
 
-	def __str__(self):
-		date_menu = str(self.date) + "-" + str(self.menu)
 
 class Order(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)

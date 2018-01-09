@@ -82,9 +82,33 @@
 		<h3>언제, 어디로 직관을 가시나요?</h3>
 		<form action="" method="POST">
 			{% csrf_token %}
-			2018년 <input type="text"> 월 <input type="text"> 일에 <input type="text" id="stadium" name="stadium"> 로 !!
+			2018년 
+			<select name="month" id="month" data-input-type="date" required>
+				<option value="">-</option>
+				{% for num in month %}
+					<option value={{ num }}>{{ num }}</option>
+				{% endfor %}
+			</select> 월 
+			<select name="day" id="day" data-input-type="date" required>
+				<option value="">-</option>
+				{% for num in day %}
+					<option value={{ num }}>{{ num }}</option>
+				{% endfor %}
+			</select> 일에
+			<select name="stadium" id="stadium" required>
+				<option value="">-</option>
+				{% for stadium in stadiums %}
+					<option value={{ stadium.pk }}>{{ stadium.name }}</option>
+				{% endfor %}
+			</select> 로 !!
+
 			<button type="submit" class="go_order">주문하러가기</button>
 		</form>
 	</div>
 </div>
 {% endblock %}
+
+
+
+
+
