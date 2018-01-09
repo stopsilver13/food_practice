@@ -106,6 +106,11 @@
             <a href="#etc" data-toggle="tab">4. 기타</a>
         </div>
 
+        <p style = "font-weight: bold; font-size: 20pt">{{ date }}</p>
+        <!-- intro에서 입력한 날싸 -->
+
+
+        <!-- 메인메뉴 -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="main">
                 <div class="picked-view">
@@ -114,14 +119,19 @@
                 <a data-toggle="modal" data-target="#myModal1-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br> <!-- 누르면 모달 나오는부분 -->
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'main' %}
+                <div style="display: inline-block;">
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
                         <img src="{{ menu.photo.url }}" style="width:100%;">
                         <P style="margin-bottom: 0px">{{ menu.store }}</P>
                         <P style="margin-bottom: 0px">{{ menu.name }}</P>
                         <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
                     </div></a>
+                    <p style="display: block; text-align: center;">수량 : <span>{{ amount }}</span>개</p>
+                </div>
+                <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
                 {% endfor %}
+
             <!-- 모달 div -->
             <div id="myModal1-{{ foodstore.pk }}" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -146,22 +156,29 @@
                 </div>
             </div>
 
+
+            <!-- 사이드 메뉴 -->
             <div role="tabpanel" class="tab-pane" id="side">
                 <div class="picked-view">
-
             {% for foodstore in foodstores %}
             {% if foodstore.is_contain_side == True %}
                 <a data-toggle="modal" data-target="#myModal2-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br>
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'side' %}
+                <div  style="display: inline-block;">
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
                         <img src="{{ menu.photo.url }}" style="width:100%;">
                         <P style="margin-bottom: 0px">{{ menu.store }}</P>
                         <P style="margin-bottom: 0px">{{ menu.name }}</P>
                         <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
                     </div></a>
+                    <p style="display: block; text-align: center;">수량 : <span>{{ amount }}</span>개</p>
+                </div>
+                <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
                 {% endfor %}
+
+            <!-- 모달 div -->
             <div id="myModal2-{{ foodstore.pk }}" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -185,22 +202,29 @@
                 </div>
             </div>
 
+
+            <!-- 음료 -->
             <div role="tabpanel" class="tab-pane" id="drink">
                 <div class="picked-view">
-
             {% for foodstore in foodstores %}
             {% if foodstore.is_contain_drink == True %}
                 <a data-toggle="modal" data-target="#myModal3-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a>  <br>
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'drink' %}
+                <div style="display: inline-block;">
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
                         <img src="{{ menu.photo.url }}" style="width:100%;">
                         <P style="margin-bottom: 0px">{{ menu.store }}</P>
                         <P style="margin-bottom: 0px">{{ menu.name }}</P>
                         <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
                     </div></a>
+                    <p style="display: block; text-align: center;">수량 : <span>{{ amount }}</span>개</p>
+                </div>
+                <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
                 {% endfor %}
+
+            <!-- 모달 div -->
             <div id="myModal3-{{ foodstore.pk }}" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -223,22 +247,30 @@
 
                 </div>
             </div>
+
+
+            <!-- 기타 -->
             <div role="tabpanel" class="tab-pane" id="etc">
                 <div class="picked-view">
-
             {% for foodstore in foodstores %}
             {% if foodstore.is_contain_etc == True %}
                 <a data-toggle="modal" data-target="#myModal4-{{ foodstore.pk }}"><h2 class="foodstore_name">{{ foodstore.name }}</h2></a> <br>
                 {% for menu in foodstore.menu_set.all %}
                 {% if menu.group == 'etc' %}
+                <div style="display: inline-block;">
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
                         <img src="{{ menu.photo.url }}" style="width:100%;">
                         <P style="margin-bottom: 0px">{{ menu.store }}</P>
                         <P style="margin-bottom: 0px">{{ menu.name }}</P>
                         <p id="price{{ menu.pk }}"><span>{{ menu.price }}</span>원</p>
                     </div></a>
+                    <p style="display: block; text-align: center;">수량 : <span>{{ amount }}</span>개</p>
+                </div>
+                <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
                 {% endfor %}
+
+            <!-- 모달 div -->
             <div id="myModal4-{{ foodstore.pk }}" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -261,6 +293,7 @@
 
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -327,6 +360,8 @@
             chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
             $("#price-sum").text(chongaek);
         });
+
+        //
     });
 
     $('#empty-basket').click(function(){
