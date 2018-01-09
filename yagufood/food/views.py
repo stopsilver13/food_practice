@@ -35,6 +35,10 @@ def food_menu(request, date, stadium):
 	date = date.split('-')
 	date = date[0] + '년 ' + date[1] + '월 ' + date[2] + '일'
 
+	if request.method =='POST':
+		code = request.POST.get('ordered_menus')
+		print(code)
+
 	return render(request, 'food/food_menu.html', {
 			'foodstores': foodstores,
 			'menus': menus,

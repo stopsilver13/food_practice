@@ -123,7 +123,7 @@
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
                         <img src="{{ menu.menu.photo.url }}" style="width:100%;">
                         <P style="margin-bottom: 0px">{{ menu.store.store }}</P>
-                        <P style="margin-bottom: 0px">{{ menu.menu.name }}</P>
+                        <P id="menu_name{{ menu.pk }}" style="margin-bottom: 0px">{{ menu.menu.name }}</P>
                         <p id="price{{ menu.pk }}"><span>{{ menu.menu.price }}</span>원</p>
                     </div></a>
                     <p style="display: block; text-align: center;">수량 : <span>{{ menu.remain_amount }}</span>개</p>
@@ -215,7 +215,7 @@
                     <a class="pick-my-food"><div class="food-menu" id="menu-{{ menu.pk }}" value="{{ menu.pk }}">
                         <img src="{{ menu.menu.photo.url }}" style="width:100%;">
                         <P style="margin-bottom: 0px">{{ menu.store.store }}</P>
-                        <P style="margin-bottom: 0px">{{ menu.menu.name }}</P>
+                        <P id="menu_name{{ menu.pk }}" style="margin-bottom: 0px">{{ menu.menu.name }}</P>
                         <p id="price{{ menu.pk }}"><span>{{ menu.menu.price }}</span>원</p>
                     </div></a>
                     <p style="display: block; text-align: center;">수량 : <span>{{ menu.remain_amount }}</span>개</p>
@@ -303,6 +303,12 @@
             총액: <span id="price-sum"></span>원
         </div>
         <button class="empty-basket" id="empty-basket">비우기</button>
+
+        <form action="" method="POST" id="test">
+            {% csrf_token %}
+            <input type="submit" value="결제하기">
+
+        </form>
     </div>
 
 
@@ -316,19 +322,29 @@
     });
 
 // 메뉴 클릭했을 때 작동
+    var index = 0;
+    var orderedlist = [];
     var countclick_defalut = 1;
     var chongaek = 0;
     $('.pick-my-food').click(function(){
         var pickedid = $(this).children().attr("id");
-        if($(".what-i-picked > #"+pickedid).length == 0) {           //장바구니에 메뉴가 없으면 추가
+        if($(".what-i-picked > #"+pickedid).length == 0) {   //장바구니에 메뉴가 없으면 추가
             $(this).children().clone().appendTo(".what-i-picked");
             $("<button class=sub-button-"+ pickedid +">-</button><p style='display: inline-block;'><span id=" + pickedid + ">"+countclick_defalut+"</span>개</p><button class=plus-button-"+ pickedid +">+</button>").insertAfter(".what-i-picked #price"+ $(this).children().attr('value'));   //갯수, +,-버튼 생성
+            $('.what-i-picked > #'+pickedid).attr("name", index);
+            var menu_amount = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick_defalut
+            orderedlist.push(menu_amount)
+            console.log(orderedlist)
+            index++;
+            $('<input name="ordered_menus" value="'+ orderedlist +'">').appendTo("#test") //input 생성하기
 
-        }   else {          //장바구니에 메뉴가 있으면 갯수 올라가게 하는 로직
+        }   else {        //장바구니에 메뉴가 있으면 갯수 올라가게 하는 로직
             countclick = Number($('span#' + pickedid).html()) + 1;
             var price_per_unit = Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
             $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
             $(".what-i-picked #price"+ $(this).children().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
+            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick
+            console.log(orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))])
         };
 
         // 총액 금액 반영
@@ -340,14 +356,16 @@
         $('.sub-button-'+ pickedid).click(function(){
             countclick = Number($('span#' + pickedid).html()) - 1;
             var price_per_unit = Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
-            if(countclick == 0 ) {  // 갯수 0개 되면 알림뜨면서 메뉴 사라지고
-                $('.sub-button-'+ pickedid).parent().remove();
-                alert("해당 메뉴를 취소하였습니다")
-            }
             $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
             $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
             chongaek = chongaek - Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
             $("#price-sum").text(chongaek);
+            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick
+            console.log(orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))])
+            if(countclick == 0 ) {  // 갯수 0개 되면 알림뜨면서 메뉴 사라지고
+                $('.sub-button-'+ pickedid).parent().remove();
+                alert("해당 메뉴를 취소하였습니다")
+            }
         });
 
         //더하기 버튼 누르면 갯수랑 금액 올라가고 총액 반영까지
@@ -359,9 +377,9 @@
             $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
             chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
             $("#price-sum").text(chongaek);
+            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick
+            console.log(orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))])
         });
-
-        //
     });
 
     $('#empty-basket').click(function(){
