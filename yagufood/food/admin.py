@@ -28,3 +28,16 @@ class DateMenuLimitAdmin(admin.ModelAdmin):
 	list_display_link = ['date', 'store', 'menu']
 	list_filter = ['date', 'store']
 	search_fields = ['menu']
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+	list_display = ['user', 'delivery_date', 'contact', 'total_price', 'paid_price', 'paid_point']
+	list_display_link = ['user', 'delivery_date', 'contact']
+	list_filter = ['delivery_date']
+	search_fields = ['user']
+
+@admin.register(OrderedMenu)
+class OrderedMenuAdmin(admin.ModelAdmin):
+	list_display = ['order', 'menu', 'amount']
+	list_display_link = ['order', 'menu']
+	search_fields = ['order', 'menu']

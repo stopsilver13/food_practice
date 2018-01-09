@@ -29,6 +29,10 @@ def food_intro(request):
 
 
 def food_menu(request, date, stadium):
+	user = request.user
+
+	# if user.profile.phone :
+	# 	contact = user.profile.phone
 
 	foodstores = DateStoreLimit.objects.filter(date=date, store__stadium=Stadium.objects.get(en_name=stadium))
 	menus = DateMenuLimit.objects.filter(date=date)
@@ -36,11 +40,26 @@ def food_menu(request, date, stadium):
 	date = date[0] + '년 ' + date[1] + '월 ' + date[2] + '일'
 
 	if request.method =='POST':
-		code = request.POST.get('ordered_menus')
-		print(code)
+		raw_orders = request.POST.get('ordered_menus').split(',')
+		total_price = request.POST.get('total_price')
+		myorder = Order.objects.create(user=user, delivery_date=date, contact='-', total_price=total_price, paid_price=0, pain_point=0)
+		
+		for order in raw_orders:
+			if order[-1] != '0':
+				order = order.split('-')
+				menu = Menu.objects.get(name=order[0])
+				amount = order[1]
+				OrderedMenu.objects.create(order=myorder, menu=menu, amount=amount)
+
+		return redirect('/food/order/{}'.format(myorder.uuid))
+
+
 
 	return render(request, 'food/food_menu.html', {
 			'foodstores': foodstores,
 			'menus': menus,
 			'date': date,
 		})
+
+def food_order(request):
+	pass
