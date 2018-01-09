@@ -306,6 +306,7 @@
 
         <form action="" method="POST" id="test">
             {% csrf_token %}
+            <input id="total" type="text" name="total_price" value="123"> <!-- 총액 전달용 input -->
             <input type="submit" value="결제하기">
 
         </form>
@@ -334,7 +335,6 @@
             $('.what-i-picked > #'+pickedid).attr("name", index);
             var menu_amount = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick_defalut
             orderedlist.push(menu_amount)
-            console.log(orderedlist)
             index++;
             $('<input name="ordered_menus" value="'+ orderedlist +'">').appendTo("#test") //input 생성하기
 
@@ -343,25 +343,32 @@
             var price_per_unit = Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
             $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
             $(".what-i-picked #price"+ $(this).children().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
-            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick
-            console.log(orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))])
+
+            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick // view.py로 넘길 리스트에 변화
         };
 
         // 총액 금액 반영
         chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
         $("#price-sum").text(chongaek);
+        $("#total").val(chongaek);
+        console.log($("#total").val());
+
 
         //빼기버튼 누르면 갯수랑 금액 줄어들고 총액 반영까지
         $('.sub-button-'+ pickedid).unbind("click");
         $('.sub-button-'+ pickedid).click(function(){
             countclick = Number($('span#' + pickedid).html()) - 1;
             var price_per_unit = Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
-            $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
-            $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
+            $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span"); //수량변화
+            $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span"); //합계금액 변화
+
             chongaek = chongaek - Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
-            $("#price-sum").text(chongaek);
-            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick
-            console.log(orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))])
+            $("#price-sum").text(chongaek); // 총액 변수에 반영해서 내용 대체
+            $("#total").val(chongaek);
+            console.log($("#total").val());
+
+            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick // view.py로 넘길 리스트에 변화
+
             if(countclick == 0 ) {  // 갯수 0개 되면 알림뜨면서 메뉴 사라지고
                 $('.sub-button-'+ pickedid).parent().remove();
                 alert("해당 메뉴를 취소하였습니다")
@@ -373,12 +380,15 @@
         $('.plus-button-'+ pickedid).click(function(){
             countclick = Number($('span#' + pickedid).html()) + 1;
             var price_per_unit = Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
-            $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
-            $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
+            $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span"); // 수량변화
+            $(".what-i-picked #price"+ $(this).parent().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span"); // 합계금액 변화
+
             chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).parent().attr('value') + " span").html());
-            $("#price-sum").text(chongaek);
+            $("#price-sum").text(chongaek); //총액 변수에 반영해서 내용 대체
+            $("#total").val(chongaek);
+            console.log($("#total").val());
+
             orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick
-            console.log(orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))])
         });
     });
 
