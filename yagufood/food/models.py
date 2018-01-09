@@ -56,6 +56,8 @@ class Order(models.Model):
 	paid_point = models.PositiveIntegerField()
 	paid_price = models.PositiveIntegerField()
 
+	is_paid = models.BooleanField(default=False)
+
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
