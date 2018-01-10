@@ -34,7 +34,8 @@ def food_menu(request, date, stadium):
 	# if user.profile.phone :
 	# 	contact = user.profile.phone
 
-	foodstores = DateStoreLimit.objects.filter(date=date, store__stadium=Stadium.objects.get(en_name=stadium))
+	stadium = Stadium.objects.get(en_name=stadium)
+	foodstores = DateStoreLimit.objects.filter(date=date, store__stadium=stadium)
 	menus = DateMenuLimit.objects.filter(date=date)
 	raw_date = date
 	date = date.split('-')
@@ -43,7 +44,7 @@ def food_menu(request, date, stadium):
 	if request.method =='POST':
 		raw_orders = request.POST.get('ordered_menus').split(',')
 		total_price = request.POST.get('total_price')
-		myorder = Order.objects.create(user=user, delivery_date=raw_date, contact='-', total_price=total_price, paid_price=0, paid_point=0)
+		myorder = Order.objects.create(user=user, delivery_date=raw_date, delivery_stadium=stadium, contact='-', total_price=total_price, paid_price=0, paid_point=0)
 		
 		for order in raw_orders:
 			order = order.split('-')
