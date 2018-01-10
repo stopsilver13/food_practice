@@ -23,6 +23,9 @@
 	.total {
 		text-align: right;
 	}
+	.readonly_input{
+		border: none;
+	}
 
 </style>
 
@@ -79,10 +82,10 @@
 
 		<hr>
 
-		<p>결제할 금액 : <input id="total_price" type="text" value="{{ order.total_price }}"> </p>
+		<p>결제할 금액 : <input class="readonly_input" id="total_price" type="text" value="{{ order.total_price }}" readonly/> </p>
 		<p>사용할 포인트 : <input id="point_using" type="text"> (내 포인트 : 5300p)</p>
 		<p>(최대 3000포인트까지 사용 가능합니다.)</p>
-		<p>최종 결제 금액 : <input id="final_price" type="text" value=""></p>
+		<p>최종 결제 금액 : <input class="readonly_input" id="final_price" type="text" value="" readonly/></p>
 
 		<input type="submit" value="결제하기">
 
@@ -97,6 +100,7 @@
 		if($(this).val() > 3000 ) {
 			$(this).val("");
 			$(this).attr("placeholder", "사용가능 포인트를 초과하였습니다.");
+			$('#final_price').val("")
 		} else {
 			$('#final_price').val($total_price-$point_using);
 		}
