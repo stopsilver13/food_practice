@@ -8,12 +8,20 @@
 
 {% block head_extra %}
 
+<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}">
+<!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />-->
+
+<script src="{% static "js/jquery-2.1.3.min.js" %}"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
+
+<script src="{% static "js/jquery-ui.js" %}"></script>
+
 <style>
 	.promotion_part {
 		height: 500px;
 		margin-top: 30px;
 		padding-top: 90px;
-		
+
 	}
 	.promotion_part>h3 {
 		padding-left: 190px;
@@ -54,7 +62,8 @@
 		color: #fff;
 		height: 30px;
 	}
-	
+
+
 </style>
 
 {% endblock %}
@@ -84,19 +93,19 @@
 
 			{{form.media}}
 
-			2018년 
+			<!--2018년
 			<select name="month" id="month" data-input-type="date" required>
 				<option value="">-</option>
 				{% for num in month %}
 					<option value={{ num }}>{{ num }}</option>
 				{% endfor %}
-			</select> 월 
+			</select> 월
 			<select name="day" id="day" data-input-type="date" required>
 				<option value="">-</option>
 				{% for num in day %}
 					<option value={{ num }}>{{ num }}</option>
 				{% endfor %}
-			</select> 일에
+			</select> --><input type="text" id="testDatepicker">에
 			<select name="stadium" id="stadium" required>
 				<option value="">-</option>
 				{% for stadium in stadiums %}
@@ -108,7 +117,21 @@
 		</form>
 	</div>
 </div>
-<script>function gettext(txt){ return txt }</script>
+<script>
+	$(function() {
+    	$( "#testDatepicker" ).datepicker({
+    		showOn: "both",
+    		buttonImage: "{% static 'img/calender.png' %}",
+    		buttonIamgeOnly: true,
+    		nextText: '다음 달',
+    		prevText: '이전 달',
+    		dateFormat: 'yy-mm-dd',
+    		dayNamesMin: ['월','화','수','목','금','토','일'],
+    		showOtherMonths: true,
+    		minDate: "+2D"
+    	});
+	});
+</script>
 {% endblock %}
 
 
