@@ -90,22 +90,7 @@
 		<h3>언제, 어디로 직관을 가시나요?</h3>
 		<form action="" method="POST">
 			{% csrf_token %}
-
-			{{form.media}}
-
-			<!--2018년
-			<select name="month" id="month" data-input-type="date" required>
-				<option value="">-</option>
-				{% for num in month %}
-					<option value={{ num }}>{{ num }}</option>
-				{% endfor %}
-			</select> 월
-			<select name="day" id="day" data-input-type="date" required>
-				<option value="">-</option>
-				{% for num in day %}
-					<option value={{ num }}>{{ num }}</option>
-				{% endfor %}
-			</select> --><input type="text" id="testDatepicker">에
+			<input name="date" type="text" id="testDatepicker" readOnly>에
 			<select name="stadium" id="stadium" required>
 				<option value="">-</option>
 				{% for stadium in stadiums %}

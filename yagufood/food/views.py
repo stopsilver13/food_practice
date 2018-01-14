@@ -12,18 +12,12 @@ def food_intro(request):
 	stadiums = Stadium.objects.all()
 
 	if request.method == 'POST':
-		year = '2018'
-		month = request.POST.get('month')
-		day = request.POST.get('day')
-
-		date = year + '-' + month + '-' + day
+		date = request.POST.get('date')
 		stadium = Stadium.objects.get(pk=request.POST.get('stadium'))
 
 		return redirect('/food/menu/{}/{}'.format(date, stadium.en_name))
 
 	return render(request, 'food/food_intro.html', {
-			'month': month,
-			'day': day,
 			'stadiums': stadiums,
 		})
 
