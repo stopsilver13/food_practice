@@ -63,6 +63,9 @@
 		height: 30px;
 	}
 
+	.ui-datepicker-next-hover:hover, .ui-datepicker-prev-hover:hover {
+		background-color: #ffffff;
+	}
 
 </style>
 
@@ -113,7 +116,8 @@
     		dateFormat: 'yy-mm-dd',
     		dayNamesMin: ['월','화','수','목','금','토','일'],
     		showOtherMonths: true,
-    		minDate: "+2D"
+    		minDate: "+2D",
+    		maxDate: "+30D"
     	});
 	});
 </script>
