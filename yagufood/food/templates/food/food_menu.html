@@ -336,7 +336,7 @@
             var menu_amount = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick_defalut
             orderedlist.push(menu_amount)
             index++;
-            $('<input name="ordered_menus" value="'+ orderedlist +'">').appendTo("#test") //input 생성하기
+            $('<input id="final_menus" name="ordered_menus" value="'+ orderedlist +'" style="display: none;">').appendTo("#test") //input 생성하기
 
             chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
             $("#price-sum").text(chongaek);
@@ -351,15 +351,16 @@
                     var price_per_unit = Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
                     $('span#' + pickedid).replaceWith("<span id=" + pickedid + ">"+countclick+"</span");
                     $(".what-i-picked #price"+ $(this).children().attr('value') + " span").replaceWith("<span>"+(countclick*price_per_unit)+"</span");
+
+                    orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick
+                    $('#final_menus').val(orderedlist);
+                    // view.py로 넘길 리스트에 변화
+
+                    // 총액 금액 반영
+                    chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
+                    $("#price-sum").text(chongaek);
+                    $("#total").val(chongaek);
                 };
-            // 최대수량 안넘도록
-
-            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick // view.py로 넘길 리스트에 변화
-
-            // 총액 금액 반영
-            chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
-            $("#price-sum").text(chongaek);
-            $("#total").val(chongaek);
         };
 
 
@@ -376,7 +377,9 @@
             $("#total").val(chongaek);
             console.log($("#total").val());
 
-            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick // view.py로 넘길 리스트에 변화
+            orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick
+            $('#final_menus').val(orderedlist);
+            // view.py로 넘길 리스트에 변화
 
             if(countclick == 0 ) {  // 갯수 0개 되면 알림뜨면서 메뉴 사라지고
                 $('.sub-button-'+ pickedid).parent().remove();
@@ -400,18 +403,21 @@
                 $("#price-sum").text(chongaek); //총액 변수에 반영해서 내용 대체
                 $("#total").val(chongaek);
 
-                orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick  //view.py로 넘길 리스트 변화
-        }
+                orderedlist[Number($(".what-i-picked #"+pickedid).attr("name"))] = $(".pick-my-food #menu_name"+ $(this).parent().attr('value')).html() +"-"+ countclick
+                $('#final_menus').val(orderedlist);
+                //view.py로 넘길 리스트 변화
+            }
         });
 
     });
 
     $('#empty-basket').click(function(){
         $('.what-i-picked > .food-menu').remove();
-        var chongaek = 0;
+        chongaek = 0;
         $("#price-sum").text(chongaek);
         orderedlist=[];
-    })
+        $('#final_menus').val(orderedlist);
+    });
 
 </script>
 
