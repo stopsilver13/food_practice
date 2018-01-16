@@ -307,6 +307,7 @@
         <form action="" method="POST" id="test">
             {% csrf_token %}
             <input id="total" type="text" name="total_price" value="123"> <!-- 총액 전달용 input -->
+            <input id="final_menus" name="ordered_menus" value="" style="color: black;">
             <input type="submit" value="주문하기">
 
         </form>
@@ -336,7 +337,7 @@
             var menu_amount = $(this).children().children("#menu_name"+ $(this).children().attr('value')).html() +"-"+ countclick_defalut
             orderedlist.push(menu_amount)
             index++;
-            $('<input id="final_menus" name="ordered_menus" value="'+ orderedlist +'" style="display: none;">').appendTo("#test") //input 생성하기
+            $('#final_menus').val(orderedlist);
 
             chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
             $("#price-sum").text(chongaek);
