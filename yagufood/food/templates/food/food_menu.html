@@ -264,7 +264,7 @@
                         <P id="menu_name{{ menu.pk }}" style="margin-bottom: 0px">{{ menu.menu.name }}</P>
                         <p id="price{{ menu.pk }}"><span>{{ menu.menu.price }}</span>원</p>
                     </div></a>
-                    <p style="display: block; text-align: center;">수량 : <span id="remain_amount-menu-{{ menu.pk }}">{{ menu.reamin_amount }}</span>개</p>
+                    <p style="display: block; text-align: center;">수량 : <span id="remain_amount-menu-{{ menu.pk }}">{{ menu.remain_amount }}</span>개</p>
                 </div>
                 <!-- 1.9. 주영. 기존 메뉴 div를 감싸는 div 생성하고 수량 표시하는 p 생성 -->
                 {% endif %}
