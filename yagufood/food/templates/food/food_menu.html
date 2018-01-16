@@ -338,6 +338,10 @@
             index++;
             $('<input name="ordered_menus" value="'+ orderedlist +'">').appendTo("#test") //input 생성하기
 
+            chongaek = chongaek + Number($(".pick-my-food #price"+ $(this).children().attr('value') + " span").html());
+            $("#price-sum").text(chongaek);
+            $("#total").val(chongaek);
+
         }   else {        //장바구니에 메뉴가 있으면 갯수 올라가게 하는 로직
                 countclick = Number($('span#' + pickedid).html());
                 if(countclick == Number($('#remain_amount-' + pickedid).html())) {
